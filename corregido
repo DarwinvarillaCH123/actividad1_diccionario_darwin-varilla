@@ -1,0 +1,62 @@
+def fnt_verificar_criterios(estudiante):
+    if estudiante['sexo'] == "masculino":
+        if 15 <= estudiante['edad'] <= 25 and estudiante['estrato'] in [1, 2]:
+            return True
+    elif estudiante['sexo'] == "femenino":
+        if 20 <= estudiante['edad'] <= 35 and 1 <= estudiante['estrato'] <= 4:
+            return True
+    return False
+
+def fnt_capturar_estudiante():
+    estudiante = {}
+    estudiante['codigo'] = input("Ingrese el código del estudiante: ")
+    estudiante['nombre'] = input("Ingrese el nombre del estudiante: ")
+    estudiante['apellidos'] = input("Ingrese los apellidos del estudiante: ")
+    estudiante['contacto'] = input("Ingrese el contacto del estudiante: ")
+    estudiante['correo'] = input("Ingrese el correo del estudiante: ")
+    estudiante['sexo'] = input("Ingrese el sexo del estudiante (masculino/femenino): ").lower()
+    estudiante['telefono'] = input("Ingrese el teléfono del estudiante: ")
+    estudiante['edad'] = int(input("Ingrese la edad del estudiante: "))
+    estudiante['estrato'] = int(input("Ingrese el estrato del estudiante: "))
+
+    return estudiante
+
+def mostrar_menu():
+    print("\n---- Menú ----")
+    print("1. Registrar un estudiante")
+    print("2. Mostrar estudiantes aprobados")
+    print("3. Mostrar estudiantes pendientes")
+    print("4. Salir")
+
+def main():
+    estudiantes_aprobados = []
+    estudiantes_pendientes = []
+
+    while True:
+        mostrar_menu()
+        opcion = input('Seleccione una opción:(1-2-3-4) ')
+
+        if opcion == '1':
+            estudiante = fnt_capturar_estudiante()
+            if fnt_verificar_criterios(estudiante):
+                estudiantes_aprobados.append(estudiante)
+                print("El estudiante ha sido registrado exitosamente.")
+            else:
+                estudiantes_pendientes.append(estudiante)
+                print("El estudiante no cumple con los criterios y ha sido agregado a la lista de pendientes.")
+        elif opcion == '2':
+            print("\nEstudiantes Aprobados:")
+            for estudiante in estudiantes_aprobados:
+                print(f"Código: {estudiante['codigo']}, Nombre: {estudiante['nombre']} {estudiante['apellidos']}, Sexo: {estudiante['sexo']}, Edad: {estudiante['edad']}, Estrato: {estudiante['estrato']}")
+        elif opcion == '3':
+            print("\nEstudiantes Pendientes:")
+            for estudiante in estudiantes_pendientes:
+                print(f"Código: {estudiante['codigo']}, Nombre: {estudiante['nombre']} {estudiante['apellidos']}, Sexo: {estudiante['sexo']}, Edad: {estudiante['edad']}, Estrato: {estudiante['estrato']}")
+        elif opcion == '4':
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opción inválida. Por favor, seleccione una opción válida (1-4).")
+
+if __name__ == "__main__":
+    main()
